@@ -1,406 +1,651 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Bryan Turo • Optics & Photonics</title>
-  <meta name="description" content="Ph.D. student in optics and photonics. Research, CV, and cover art." />
-  <style>
-    :root{
-      --bg: #0b0f1a;
-      --panel: rgba(255,255,255,0.06);
-      --panel2: rgba(255,255,255,0.10);
-      --text: rgba(255,255,255,0.92);
-      --muted: rgba(255,255,255,0.68);
-      --line: rgba(255,255,255,0.14);
-      --max: 1120px;
-      --radius: 18px;
-    }
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Bryan Turo | Quantum Spatiotemporal Dynamics</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        /* Custom Styles & Utilities */
+        body {
+            font-family: 'Segoe UI Light', 'Segoe UI', sans-serif;
+            background-color: #050b14;
+            color: #e2e8f0;
+            overflow-x: hidden;
+            font-weight: 300;
+        }
 
-    *{ box-sizing:border-box; }
-    html, body{ height:100%; }
-    body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      background: radial-gradient(1200px 700px at 10% 0%, rgba(120,120,255,0.18), transparent 60%),
-                  radial-gradient(900px 600px at 90% 10%, rgba(0,255,200,0.12), transparent 60%),
-                  var(--bg);
-      color: var(--text);
-      overflow-x:hidden;
-    }
+        .font-mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
 
-    a{ color: inherit; text-decoration:none; }
-    a:hover{ text-decoration: underline; }
-    .wrap{ max-width: var(--max); margin: 0 auto; padding: 28px 18px; }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #050b14; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
 
-    /* Nav */
-    .nav{
-      position: sticky; top:0; z-index: 20;
-      backdrop-filter: blur(10px);
-      background: linear-gradient(to bottom, rgba(11,15,26,0.78), rgba(11,15,26,0.20));
-      border-bottom: 1px solid var(--line);
-    }
-    .nav .bar{
-      display:flex; align-items:center; justify-content:space-between;
-      gap:16px;
-    }
-    .brand{
-      display:flex; align-items:center; gap:10px;
-      font-weight:600; letter-spacing:0.2px;
-    }
-    .dot{
-      width:10px; height:10px; border-radius:50%;
-      background: radial-gradient(circle at 30% 30%, #fff, rgba(255,255,255,0.2));
-      box-shadow: 0 0 18px rgba(120,120,255,0.4);
-    }
-    .links{ display:flex; gap:14px; flex-wrap:wrap; align-items:center; }
-    .pill{
-      display:inline-flex; align-items:center; gap:8px;
-      padding: 8px 12px;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      background: rgba(255,255,255,0.04);
-    }
-    .pill:hover{ background: rgba(255,255,255,0.08); text-decoration:none; }
+        /* Glassmorphism Cards */
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        /* Navigation Glass */
+        .nav-glass {
+            background: rgba(5, 11, 20, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
 
-    /* Hero */
-    .hero{
-      display:grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      gap: 22px;
-      align-items: stretch;
-      padding-top: 34px;
-    }
-    @media (max-width: 920px){
-      .hero{ grid-template-columns: 1fr; }
-    }
+        /* Nav Link Animations */
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background-color: #06b6d4; /* Cyan-500 */
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+        .nav-link.active {
+            color: #fff;
+        }
 
-    .card{
-      border: 1px solid var(--line);
-      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
-      border-radius: var(--radius);
-      box-shadow: 0 18px 60px rgba(0,0,0,0.28);
-    }
-    .hero-left{ padding: 26px; }
-    .kicker{ color: var(--muted); font-size: 14px; letter-spacing:0.35px; text-transform:uppercase; }
-    h1{
-      margin: 10px 0 10px;
-      font-size: clamp(34px, 4vw, 52px);
-      line-height: 1.05;
-      letter-spacing: -0.6px;
-    }
-    .lead{
-      color: var(--muted);
-      font-size: 16px;
-      line-height: 1.6;
-      max-width: 62ch;
-      margin: 0 0 16px;
-    }
-    .cta-row{ display:flex; gap:12px; flex-wrap:wrap; margin-top: 14px; }
-    .btn{
-      display:inline-flex; align-items:center; justify-content:center;
-      gap:10px;
-      padding: 11px 14px;
-      border-radius: 12px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,0.06);
-      font-weight:600;
-    }
-    .btn.primary{
-      background: linear-gradient(135deg, rgba(130,120,255,0.42), rgba(0,255,200,0.18));
-      border-color: rgba(180,180,255,0.35);
-    }
-    .btn:hover{ background: rgba(255,255,255,0.10); text-decoration:none; }
-    .btn.primary:hover{ background: linear-gradient(135deg, rgba(130,120,255,0.55), rgba(0,255,200,0.22)); }
+        /* Glow Effects */
+        .glow-white { filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.7)); }
+        .glow-text { text-shadow: 0 0 20px rgba(255, 255, 255, 0.3); }
 
-    /* Prism panel */
-    .hero-right{
-      position: relative;
-      overflow:hidden;
-      min-height: 320px;
-      padding: 0;
-    }
-    .prism-frame{
-      position:absolute; inset:0;
-      display:flex; align-items:center; justify-content:center;
-      padding: 22px;
-    }
-    .prism-hint{
-      position:absolute; left:18px; bottom:14px;
-      color: rgba(255,255,255,0.58);
-      font-size: 12px;
-      user-select:none;
-    }
+        /* Utilities */
+        .content-layer { z-index: 50; position: relative; }
+        
+        /* Fade Transitions */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            will-change: opacity, transform;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
-    /* Sections */
-    section{ padding: 44px 0 10px; }
-    .section-head{
-      display:flex; justify-content:space-between; align-items:end; gap:16px;
-      margin-bottom: 14px;
-    }
-    h2{ margin:0; font-size: 22px; letter-spacing:-0.2px; }
-    .sub{ color: var(--muted); font-size: 14px; line-height:1.5; }
-
-    /* Gallery */
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 14px;
-    }
-    .tile{
-      grid-column: span 4;
-      border-radius: 16px;
-      overflow:hidden;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,0.04);
-      position:relative;
-    }
-    .tile img{
-      width:100%; height: 260px;
-      object-fit: cover;
-      display:block;
-      filter: saturate(1.02);
-      transform: scale(1.01);
-      transition: transform 200ms ease;
-    }
-    .tile:hover img{ transform: scale(1.05); }
-    .cap{
-      position:absolute; left:0; right:0; bottom:0;
-      padding: 10px 12px;
-      background: linear-gradient(to top, rgba(0,0,0,0.60), rgba(0,0,0,0));
-      color: rgba(255,255,255,0.92);
-      font-size: 13px;
-    }
-
-    @media (max-width: 980px){
-      .tile{ grid-column: span 6; }
-      .tile img{ height: 240px; }
-    }
-    @media (max-width: 640px){
-      .tile{ grid-column: span 12; }
-      .tile img{ height: 240px; }
-    }
-
-    /* Footer */
-    footer{
-      margin-top: 38px;
-      padding: 28px 0 42px;
-      border-top: 1px solid var(--line);
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    /* Make anchors land nicely under sticky nav */
-    [id]{ scroll-margin-top: 80px; }
-  </style>
+        /* SVG Background Z-Index */
+        #visual-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        /* Modal Transitions */
+        #image-modal { transition: opacity 0.3s ease; }
+        #image-modal.hidden { opacity: 0; pointer-events: none; }
+        #image-modal:not(.hidden) { opacity: 1; pointer-events: auto; }
+    </style>
 </head>
+<body class="antialiased selection:bg-cyan-500 selection:text-white">
 
-<body>
-  <div class="nav">
-    <div class="wrap">
-      <div class="bar">
-        <div class="brand">
-          <span class="dot"></span>
-          <span>Bryan Turo</span>
-        </div>
-        <div class="links">
-          <a class="pill" href="#work">Work</a>
-          <a class="pill" href="#covers">Cover art</a>
-          <a class="pill" href="/proposal/">Proposal</a>
-          <a class="pill" href="/assets/cv.pdf" target="_blank" rel="noopener">CV</a>
-        </div>
-      </div>
+<!-- NAVIGATION HEADER -->
+<header id="main-nav" class="fixed top-0 left-0 w-full z-[100] nav-glass transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-6 md:px-12 h-20 flex items-center justify-between">
+        <!-- Logo / Brand -->
+        <a href="#home" class="flex items-center space-x-2 group">
+            <div class="h-8 w-8 rounded bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center text-white font-bold font-mono group-hover:shadow-[0_0_15px_rgba(6,182,212,0.6)] transition-shadow">
+                BT
+            </div>
+            <span class="font-semibold text-slate-200 tracking-tight group-hover:text-white transition-colors hidden sm:block">Future Dr. Turo</span>
+        </a>
+        
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-400">
+            <a href="#home" class="nav-link hover:text-cyan-400 transition-colors">Home</a>
+            <a href="#research" class="nav-link hover:text-cyan-400 transition-colors">Research</a>
+            <a href="#portfolio" class="nav-link hover:text-cyan-400 transition-colors active">Portfolio</a>
+            <a href="#cv" class="nav-link hover:text-cyan-400 transition-colors">C.V.</a>
+        </nav>
+
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-btn" class="md:hidden text-slate-300 hover:text-white focus:outline-none">
+            <!-- Menu Icon SVG -->
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+        </button>
     </div>
-  </div>
 
-  <main class="wrap">
-    <div class="hero">
-      <div class="card hero-left">
-        <div class="kicker">Optics • Photonics • Structured light</div>
-        <h1>Ph.D. student building spatiotemporal light tools.</h1>
-        <p class="lead">
-          I’m a 5th-year Ph.D. student in optics and photonics. I work on structured light and
-          quantum/physical optics—turning dispersion and geometry into usable optical design.
-        </p>
-        <div class="cta-row">
-          <a class="btn primary" href="/assets/cv.pdf" target="_blank" rel="noopener">Download CV</a>
-          <a class="btn" href="/proposal/">View proposal slides</a>
-          <a class="btn" href="#covers">See cover art</a>
-        </div>
-        <p class="sub" style="margin-top:14px;">
-          Scroll: the prism animation responds to your scroll position.
-        </p>
-      </div>
+    <!-- Mobile Menu Dropdown -->
+    <div id="mobile-menu" class="hidden md:hidden bg-[#050b14]/95 backdrop-blur-xl border-b border-slate-800 absolute w-full left-0 top-20">
+        <nav class="flex flex-col p-6 space-y-4 text-center text-slate-300">
+            <a href="#home" class="hover:text-cyan-400 py-2" onclick="closeMobileMenu()">Home</a>
+            <a href="#research" class="hover:text-cyan-400 py-2" onclick="closeMobileMenu()">Research</a>
+            <a href="#portfolio" class="hover:text-cyan-400 py-2" onclick="closeMobileMenu()">Portfolio</a>
+            <a href="#cv" class="hover:text-cyan-400 py-2" onclick="closeMobileMenu()">C.V.</a>
+        </nav>
+    </div>
+</header>
 
-      <div class="card hero-right">
-        <div class="prism-frame">
-          <!-- Lightweight SVG "prism + beam" that animates via scroll -->
-          <svg id="prismSvg" viewBox="0 0 820 520" width="100%" height="100%" role="img" aria-label="Prism with light dispersion">
-            <defs>
-              <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
-                <feGaussianBlur stdDeviation="4" result="b" />
+<!-- 1. FIXED VISUAL BACKGROUND (The Prism Engine) -->
+<div id="visual-canvas">
+    <!-- Dynamic Stars (Populated by JS) -->
+    <div id="stars-container" class="absolute inset-0 opacity-40"></div>
+    
+    <!-- The Prism SVG -->
+    <svg id="prism-svg" class="w-full h-full" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+        <defs>
+            <filter id="glow-strong" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="3" result="coloredBlur"></feGaussianBlur>
                 <feMerge>
-                  <feMergeNode in="b" />
-                  <feMergeNode in="SourceGraphic" />
+                    <feMergeNode in="coloredBlur"></feMergeNode>
+                    <feMergeNode in="SourceGraphic"></feMergeNode>
                 </feMerge>
-              </filter>
+            </filter>
+        </defs>
+        
+        <!-- Prism Geometry (Updated Coordinates) -->
+        <path id="prism-path" d="M600,150 L350,650 L850,650 Z" fill="rgba(255, 255, 255, 0.02)" stroke="rgba(255, 255, 255, 0.15)" stroke-width="1.5" class="transition-opacity duration-700"></path>
+              
+        <!-- Prism Edge Highlights -->
+        <path d="M600,150 L380,630" stroke="rgba(255,255,255,0.05)" stroke-width="1"></path>
+        <path d="M600,150 L820,630" stroke="rgba(255,255,255,0.05)" stroke-width="1"></path>
+        
+        <!-- 1. Input Beam (White) -->
+        <!-- Fixed Start coordinates to ensure visibility -->
+        <line id="beam-input" x1="-100" y1="450" x2="473" y2="400" stroke="white" stroke-width="5" stroke-linecap="round" filter="url(#glow-strong)" class="opacity-90"></line>
+              
+        <!-- 2. Internal Beams -->
+        <g id="beams-internal" filter="url(#glow-strong)"></g>
+        
+        <!-- 3. External Spectrum -->
+        <g id="beams-external" filter="url(#glow-strong)"></g>
+    </svg>
+</div>
 
-              <linearGradient id="prismFill" x1="0" x2="1" y1="0" y2="1">
-                <stop offset="0" stop-color="rgba(255,255,255,0.20)" />
-                <stop offset="1" stop-color="rgba(255,255,255,0.06)" />
-              </linearGradient>
-            </defs>
+<!-- 2. SCROLLABLE CONTENT LAYER -->
+<main class="content-layer relative w-full max-w-7xl mx-auto px-6 md:px-12">
 
-            <!-- Incoming beam -->
-            <path id="beamIn" d="M 40 280 L 310 280" fill="none" stroke="white" stroke-width="10" stroke-linecap="round" filter="url(#glow)" opacity="0.9"/>
-
-            <!-- Prism (triangle) -->
-            <path id="prism" d="M 330 110 L 330 410 L 575 260 Z"
-                  fill="url(#prismFill)" stroke="rgba(255,255,255,0.35)" stroke-width="2"/>
-
-            <!-- Internal beam -->
-            <path id="beamMid" d="M 330 280 L 520 260" fill="none" stroke="white" stroke-width="6" stroke-linecap="round" filter="url(#glow)" opacity="0.8"/>
-
-            <!-- Dispersed beams -->
-            <path class="beamOut" id="b1" d="M 575 260 L 780 205" fill="none" stroke="white" stroke-width="5" stroke-linecap="round" filter="url(#glow)" opacity="0.9"/>
-            <path class="beamOut" id="b2" d="M 575 260 L 790 235" fill="none" stroke="white" stroke-width="5" stroke-linecap="round" filter="url(#glow)" opacity="0.9"/>
-            <path class="beamOut" id="b3" d="M 575 260 L 800 265" fill="none" stroke="white" stroke-width="5" stroke-linecap="round" filter="url(#glow)" opacity="0.9"/>
-            <path class="beamOut" id="b4" d="M 575 260 L 790 295" fill="none" stroke="white" stroke-width="5" stroke-linecap="round" filter="url(#glow)" opacity="0.9"/>
-            <path class="beamOut" id="b5" d="M 575 260 L 780 325" fill="none" stroke="white" stroke-width="5" stroke-linecap="round" filter="url(#glow)" opacity="0.9"/>
-
-            <!-- A subtle “screen” -->
-            <rect x="770" y="160" width="18" height="200" rx="9" fill="rgba(255,255,255,0.10)" stroke="rgba(255,255,255,0.18)"/>
-
-            <!-- Label -->
-            <text x="330" y="86" fill="rgba(255,255,255,0.55)" font-size="16" font-family="ui-sans-serif,system-ui">
-              prism • dispersion
-            </text>
-          </svg>
+    <!-- SECTION 1: HERO -->
+    <section id="home" class="min-h-screen flex flex-col justify-center items-start pt-20">
+        <div class="fade-in-section is-visible max-w-2xl">
+            <div class="inline-flex items-center space-x-2 mb-6 px-3 py-1 rounded-full border border-cyan-500/30 bg-cyan-950/20 text-cyan-300 text-xs font-mono uppercase tracking-wider">
+                <span class="relative flex h-2 w-2">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
+                </span>
+                <span>System Online</span>
+            </div>
+            
+            <h1 class="text-6xl md:text-8xl font-bold tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-200 to-slate-500 mb-6 glow-text">
+                Bryan Turo
+            </h1>
+            
+            <p class="text-xl md:text-2xl text-slate-400 font-light leading-relaxed max-w-xl">
+                Investigating <span class="text-white font-medium">Quantum Spatiotemporal Dynamics</span>.
+            </p>
         </div>
-        <div class="prism-hint">Scroll to change angle &amp; dispersion</div>
-      </div>
+        
+        <a href="#research" class="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center opacity-60 animate-bounce hover:text-cyan-400 transition-colors cursor-pointer">
+            <span class="text-xs uppercase tracking-widest mb-2">Initialize Dispersion</span>
+            <!-- Arrow Down SVG -->
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3" />
+            </svg>
+        </a>
+    </section>
+
+<!-- SECTION 2: RESEARCH & ABOUT -->
+<section id="research" class="min-h-screen flex items-center justify-end py-24 scroll-mt-20">
+    <div class="glass-panel p-8 md:p-12 rounded-2xl max-w-2xl fade-in-section w-full border-l-4 border-l-cyan-500/50 is-visible">
+        <h2 class="text-3xl font-bold mb-6 flex items-center">
+            <!-- Science Icon SVG -->
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 mr-3 text-cyan-400">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23-.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5" />
+            </svg>
+            Research Focus
+        </h2>
+        
+        <div class="space-y-6 text-slate-300 leading-relaxed">
+            <p>
+                I study light as a <strong class="text-white">spatiotemporally structured physical field</strong>, where spatial, temporal, and spectral degrees of freedom are deliberately correlated rather than treated independently.
+            </p>
+
+            <p>
+                My research focuses on the synthesis, propagation, and measurement of <strong>spatiotemporal wave packets</strong> in both classical and quantum regimes. 
+                By engineering precise correlations between transverse momentum and frequency, I explore how structured fields can exhibit unconventional propagation dynamics and enhanced robustness.
+            </p>
+
+            <p>
+                In the quantum domain, this work extends to <strong>biphoton states generated via nonlinear optics</strong>, where spatiotemporal structure provides a new handle for mode control, entanglement engineering, and efficient coupling into optical systems.
+            </p>
+
+            <p>
+                This research is grounded in first-principles theory and realized experimentally using Fourier-optical synthesis, spatial light modulators, nonlinear crystals, and cavity-based platforms, with an emphasis on physical intuition rather than black-box modeling.
+            </p>
+            
+            <div class="grid grid-cols-2 gap-4 mt-8">
+                <div class="bg-slate-800/50 p-4 rounded-lg">
+                    <h3 class="text-white font-semibold mb-1">Spatiotemporal Wave Packets</h3>
+                    <p class="text-xs text-slate-400">Space–frequency correlations, propagation control</p>
+                </div>
+                <div class="bg-slate-800/50 p-4 rounded-lg">
+                    <h3 class="text-white font-semibold mb-1">Quantum Structured Light</h3>
+                    <p class="text-xs text-slate-400">Biphotons, mode engineering</p>
+                </div>
+            </div>
+        </div>
     </div>
+</section>
 
-    <section id="work">
-      <div class="section-head">
-        <h2>Work</h2>
-        <div class="sub">Short and punchy. Links go here.</div>
-      </div>
 
-      <div class="grid">
-        <div class="card" style="grid-column: span 12; padding:18px;">
-          <div style="display:flex; gap:14px; flex-wrap:wrap; align-items:flex-start; justify-content:space-between;">
-            <div style="max-width:70ch;">
-              <div class="kicker">Research focus</div>
-              <div style="margin-top:8px; color:var(--muted); line-height:1.65;">
-                Spatiotemporally structured fields, dispersion-aware beam synthesis, and
-                quantum/physical optics experiments. I like methods that turn geometry into
-                constraints you can actually build.
-              </div>
+    <!-- SECTION 3: PORTFOLIO -->
+    <section id="portfolio" class="min-h-screen py-24 flex flex-col justify-center scroll-mt-20">
+        <div class="fade-in-section w-full is-visible">
+            <div class="flex items-end justify-between mb-12 border-b border-slate-700 pb-4">
+                <div>
+                    <h2 class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-400 to-purple-400">
+                        Spectral Output
+                    </h2>
+                    <p class="text-slate-400 mt-2">Blender Visualizations &amp; Cover Arts</p>
+                </div>
+                <div class="hidden md:block text-right">
+                    <p class="font-mono text-xs text-slate-500">RENDER_ENGINE: CYCLES</p>
+                    <p class="font-mono text-xs text-slate-500">SAMPLES: 4096</p>
+                </div>
             </div>
-            <div class="cta-row" style="margin-top:0;">
-              <a class="btn" href="/proposal/">Proposal slides</a>
-              <a class="btn" href="/assets/cv.pdf" target="_blank" rel="noopener">CV</a>
-              <!-- Add: Google Scholar / GitHub / LinkedIn -->
+
+            <!-- Portfolio Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Item 1 -->
+                <div class="group relative cursor-pointer" onclick="openModal('assets/cover1.png')">
+                    <div class="overflow-hidden rounded-xl border border-slate-700/50 relative aspect-[4/3]">
+                        <img src="assets/cover1.png" alt="Quantum Spatiotemporal" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-90 group-hover:opacity-100">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-80 pointer-events-none"></div>
+                    </div>
+                    <div class="absolute bottom-4 left-4 right-4 translate-y-2 group-hover:translate-y-0 transition-transform">
+                        <h3 class="text-lg font-bold text-white">Local and Remote Spacetime Wavepackets</h3>
+                        <p class="text-xs text-cyan-300 font-mono">Nature Photonics Cover Concept</p>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="group relative cursor-pointer md:translate-y-12" onclick="openModal('assets/concept1.png')">
+                    <div class="overflow-hidden rounded-xl border border-slate-700/50 relative aspect-[4/3]">
+                        <img src="assets/concept1.png" alt="SPDC Geometry" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-90 group-hover:opacity-100">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-80 pointer-events-none"></div>
+                    </div>
+                    <div class="absolute bottom-4 left-4 right-4 translate-y-2 group-hover:translate-y-0 transition-transform">
+                        <h3 class="text-lg font-bold text-white">Geometry of Phase Matching in SPDC</h3>
+                        <p class="text-xs text-purple-300 font-mono">Conceptual Figure</p>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="group relative cursor-pointer" onclick="openModal('assets/setup1.png')">
+                    <div class="overflow-hidden rounded-xl border border-slate-700/50 relative aspect-[4/3]">
+                        <img src="assets/setup1.png" alt="Optical Setup" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-90 group-hover:opacity-100">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-80 pointer-events-none"></div>
+                    </div>
+                    <div class="absolute bottom-4 left-4 right-4 translate-y-2 group-hover:translate-y-0 transition-transform">
+                        <h3 class="text-lg font-bold text-white">Optical Schematic</h3>
+                        <p class="text-xs text-emerald-300 font-mono">Nature Photonics Paper</p>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </section>
 
-    <section id="covers">
-      <div class="section-head">
-        <h2>Cover art</h2>
-        <div class="sub">A few pieces I’ve made (replace these files/captions).</div>
-      </div>
-
-      <div class="grid">
-        <a class="tile" href="/assets/covers/cover1.jpg" target="_blank" rel="noopener">
-          <img src="/assets/covers/cover1.jpg" alt="Cover art 1">
-          <div class="cap">Cover Art 1 — short caption</div>
-        </a>
-        <a class="tile" href="/assets/covers/cover2.jpg" target="_blank" rel="noopener">
-          <img src="/assets/covers/cover2.jpg" alt="Cover art 2">
-          <div class="cap">Cover Art 2 — short caption</div>
-        </a>
-        <a class="tile" href="/assets/covers/cover3.jpg" target="_blank" rel="noopener">
-          <img src="/assets/covers/cover3.jpg" alt="Cover art 3">
-          <div class="cap">Cover Art 3 — short caption</div>
-        </a>
-      </div>
-    </section>
-
-    <footer>
-      <div style="display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;">
-        <div>© <span id="year"></span> Bryan Turo</div>
-        <div>
-          <a href="mailto:you@domain.com">you@domain.com</a>
-          <span style="opacity:.6;"> • </span>
-          <a href="https://github.com/BryanZero" target="_blank" rel="noopener">GitHub</a>
+<!-- SECTION 4: C.V. & CONTACT -->
+<section id="cv" class="min-h-screen flex items-center justify-center py-24 scroll-mt-20">
+    <div class="glass-panel w-full max-w-4xl p-8 rounded-2xl fade-in-section is-visible">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 border-b border-slate-700 pb-6">
+            <div>
+                <h2 class="text-3xl font-bold text-white">Curriculum Vitae</h2>
+                <p class="text-slate-400 text-sm mt-1">Academic &amp; Professional Timeline</p>
+            </div>
+            <a href="assets/Bryan_Turo_CV.pdf" class="mt-4 md:mt-0 flex items-center space-x-2 bg-white text-slate-900 px-6 py-2 rounded-lg font-semibold hover:bg-cyan-50 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                </svg>
+                <span>Download Full PDF</span>
+            </a>
         </div>
-      </div>
+
+        <!-- Timeline -->
+        <div class="relative border-l border-slate-700 ml-4 space-y-10">
+
+            <!-- PhD -->
+            <div class="relative pl-8">
+                <div class="absolute -left-1.5 top-1.5 h-3 w-3 rounded-full bg-cyan-500 shadow-[0_0_10px_rgba(6,182,212,0.5)]"></div>
+                <span class="font-mono text-xs text-cyan-400">Aug 2021 – Present</span>
+                <h3 class="text-lg font-bold text-white mt-1">Ph.D. in Optics &amp; Photonics</h3>
+                <p class="text-slate-400 text-sm">University of Central Florida</p>
+                <p class="text-slate-500 text-sm mt-2">
+                    Quantum spatio-temporal dynamics of light. Research on entangled photon
+                    omni-resonance in planar Fabry–Pérot cavities and synthesis of single-photon
+                    space-time wave packets.
+                </p>
+            </div>
+
+            <!-- Apple -->
+            <div class="relative pl-8">
+                <div class="absolute -left-1.5 top-1.5 h-3 w-3 rounded-full bg-slate-300 border border-slate-400"></div>
+                <span class="font-mono text-xs text-slate-400">Jun 2024 – Aug 2024</span>
+                <h3 class="text-lg font-bold text-white mt-1">Ph.D. Display Engineering Intern</h3>
+                <p class="text-slate-400 text-sm">Apple Inc.</p>
+                <p class="text-slate-500 text-sm mt-2">
+                    Developed calibration methodologies for next-generation iPhone displays,
+                    reducing per-part variability by 80% and scaling to high-volume manufacturing.
+                    Led cross-team tooling efforts and built analysis frameworks accelerating
+                    internal investigations by 350%.
+                </p>
+            </div>
+
+            <!-- Research Experience -->
+            <div class="relative pl-8">
+                <div class="absolute -left-1.5 top-1.5 h-3 w-3 rounded-full bg-slate-600 border border-slate-400"></div>
+                <span class="font-mono text-xs text-slate-400">2019 – 2021</span>
+                <h3 class="text-lg font-bold text-white mt-1">Undergraduate Researcher</h3>
+                <p class="text-slate-400 text-sm">Florida International University</p>
+                <p class="text-slate-500 text-sm mt-2">
+                    Designed FPGA-based coincidence counting systems for SPDC sources and
+                    implemented TensorFlow-based linear optical transformations using spatial
+                    light modulators. Presented holography-based free-space communication work
+                    at the McNair Conference.
+                </p>
+            </div>
+
+            <!-- Education -->
+            <div class="relative pl-8">
+                <div class="absolute -left-1.5 top-1.5 h-3 w-3 rounded-full bg-slate-600 border border-slate-400"></div>
+                <span class="font-mono text-xs text-slate-400">Feb 2018 – May 2021</span>
+                <h3 class="text-lg font-bold text-white mt-1">B.S. in Physics, Minor in Mathematics</h3>
+                <p class="text-slate-400 text-sm">Florida International University</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+    
+    <!-- Footer -->
+    <footer class="w-full glass-panel mt-20 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 py-10">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                
+                <!-- Footer Brand -->
+                <div class="flex items-center space-x-3">
+                    <div class="h-8 w-8 rounded bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center text-white font-bold font-mono text-sm">BT</div>
+                    <div>
+                        <span class="block text-slate-200 font-semibold tracking-tight">Bryan Turo</span>
+                        <span class="block text-xs text-slate-500">Quantum Spatiotemporal Dynamics</span>
+                    </div>
+                </div>
+
+                <!-- Footer Links -->
+                <div class="flex space-x-8 text-sm text-slate-400 font-medium">
+                    <a href="#home" class="hover:text-cyan-400 transition-colors">Home</a>
+                    <a href="#research" class="hover:text-cyan-400 transition-colors">Research</a>
+                    <a href="#portfolio" class="hover:text-cyan-400 transition-colors">Art</a>
+                </div>
+
+                <!-- Socials/Copyright -->
+                <div class="text-center md:text-right">
+                    <div class="flex space-x-4 mb-2 justify-center md:justify-end text-slate-400">
+                         <a href="mailto:bryan.turo@ucf.edu" class="hover:text-white transition-colors">bryan.turo@ucf.edu</a>
+                         <span class="text-slate-700">/</span>
+                         <a href="https://www.linkedin.com/in/bryan-turo/" class="hover:text-white transition-colors">LinkedIn</a>
+                         <!-- <span class="text-slate-700">/</span> -->
+                    </div>
+                    <p class="text-xs text-slate-600">© 2026 Bryan Turo. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
     </footer>
-  </main>
 
-  <script>
-    // --- Footer year ---
-    document.getElementById("year").textContent = new Date().getFullYear();
+    <!-- Bottom Spacer -->
+    <div class="h-12"></div>
 
-    // --- Prism scroll animation ---
-    // We’ll map scroll progress -> beam spread + slight prism "tilt" (visual only).
-    const svg = document.getElementById("prismSvg");
-    const prism = document.getElementById("prism");
-    const beamMid = document.getElementById("beamMid");
-    const beams = ["b1","b2","b3","b4","b5"].map(id => document.getElementById(id));
+</main>
 
-    function clamp01(x){ return Math.max(0, Math.min(1, x)); }
+<!-- MODAL FOR IMAGES -->
+<div id="image-modal" class="hidden fixed inset-0 z-[200] bg-black/95 backdrop-blur-sm flex items-center justify-center p-4 cursor-zoom-out" onclick="closeModal()">
+    <img id="modal-img" src="" class="max-w-full max-h-[90vh] rounded-lg shadow-2xl shadow-cyan-500/20 transform scale-95 opacity-0 transition-all duration-300" />
+</div>
 
-    function onScroll(){
-      const doc = document.documentElement;
-      const scrollTop = doc.scrollTop || document.body.scrollTop;
-      const maxScroll = (doc.scrollHeight - doc.clientHeight) || 1;
-      const t = clamp01(scrollTop / maxScroll); // 0..1
+<!-- 3. INTERACTION SCRIPTS -->
+<script>
+        /**
+         * PHYSICS & ANIMATION ENGINE CONFIGURATION
+         * ----------------------------------------
+         * Control "rate of propagation" here.
+         * - duration: The amount of scroll percentage (0.0 - 1.0) it takes to complete.
+         * Higher duration = Slower animation relative to scroll.
+         */
+        const ANIMATION_CONFIG = {
+            input: { start: 0.0, duration: 0.1 },    
+            internal: { start: 0.1, duration: 0.25 }, // Splitting inside prism
+            external: { start: 0.40, duration: 0.30 }  // Spreading out
+        };
 
-      // Dispersion factor: subtle at top, stronger as you scroll down
-      const spread = 0.15 + 0.85 * t;
+        // Precise Prism Logic from Snippet
+        const colors = [
+            '#FF2A2A', '#FF7F00', '#FFFF00', '#00FF00', '#00FFFF', '#0000FF', '#8B00FF'
+        ];
+        
+        // Coordinates matching the new SVG geometry
+        const P_Entry = { x: 475, y: 400 }; 
+        const startY_exit = 420;
+        const endY_exit = 490;
+        const P_Final_X = 1400;
+        const startY_final = 450;
+        const endY_final = 750;
 
-      // Slight prism tilt (just for feel)
-      const tilt = (-4 + 8 * (t - 0.5)); // degrees
-      prism.style.transformOrigin = "420px 260px";
-      prism.style.transform = `rotate(${tilt}deg)`;
+        const beamsInternal = document.getElementById('beams-internal');
+        const beamsExternal = document.getElementById('beams-external');
+        const beamInput = document.getElementById('beam-input');
+        
+        const internalLines = [];
+        const externalLines = [];
 
-      // Internal beam "refraction" point: adjust endpoint a bit
-      const midX = 520 + 18 * (t - 0.5);
-      const midY = 260 + 22 * (0.5 - t);
-      beamMid.setAttribute("d", `M 330 280 L ${midX.toFixed(1)} ${midY.toFixed(1)}`);
+        function buildRays() {
+            colors.forEach((color, i) => {
+                const fraction = i / (colors.length - 1);
+                
+                // 1. Calculate Intersection with Right Face (Interface 2)
+                // Equation: x = (y + 1100) / 2
+                const yExit = startY_exit + (endY_exit - startY_exit) * fraction;
+                const xExit = (yExit + 1050) / 2;
+                
+                // 2. Internal Line (Entry -> Exit)
+                const iLine = document.createElementNS("http://www.w3.org/2000/svg", "line");
+                iLine.setAttribute("x1", P_Entry.x);
+                iLine.setAttribute("y1", P_Entry.y);
+                iLine.setAttribute("x2", xExit);
+                iLine.setAttribute("y2", yExit);
+                iLine.setAttribute("stroke", color);
+                iLine.setAttribute("stroke-width", "3");
+                iLine.setAttribute("stroke-opacity", "0.6");
+                beamsInternal.appendChild(iLine);
+                internalLines.push(iLine);
 
-      // Outgoing beams: change their angles + fade spectrum separation
-      // Base endpoints (x fixed-ish, y offsets change with spread)
-      const baseX = 790;
-      const ys = [
-        205 - 70 * spread,
-        235 - 40 * spread,
-        265 +  0 * spread,
-        295 + 40 * spread,
-        325 + 70 * spread,
-      ];
+                // 3. External Line (Exit -> Final)
+                const yFinal = startY_final + (endY_final - startY_final) * fraction;
+                const eLine = document.createElementNS("http://www.w3.org/2000/svg", "line");
+                eLine.setAttribute("x1", xExit);
+                eLine.setAttribute("y1", yExit);
+                eLine.setAttribute("x2", P_Final_X);
+                eLine.setAttribute("y2", yFinal);
+                eLine.setAttribute("stroke", color);
+                eLine.setAttribute("stroke-width", "4"); // Thicker for output
+                eLine.setAttribute("stroke-opacity", "0.9");
+                beamsExternal.appendChild(eLine);
+                externalLines.push(eLine);
+            });
+        }
+        buildRays();
 
-      // Give them subtle per-beam opacity variation with spread
-      beams.forEach((p, i) => {
-        const x = baseX + (i === 2 ? 18 : 0) * spread;
-        const y = ys[i];
-        p.setAttribute("d", `M 575 260 L ${x.toFixed(1)} ${y.toFixed(1)}`);
-        p.style.opacity = (0.55 + 0.45 * spread).toFixed(3);
-      });
+        function setDraw(line, fraction) {
+            const len = line.getTotalLength();
+            line.style.strokeDasharray = len;
+            // Ensure 0 <= fraction <= 1
+            const safeFraction = Math.max(0, Math.min(1, fraction));
+            line.style.strokeDashoffset = len * (1 - safeFraction);
+        }
 
-      // Make the incoming beam slightly “pulse” with scroll (very subtle)
-      const beamIn = document.getElementById("beamIn");
-      const w = 8.5 + 2.5 * Math.sin(t * Math.PI);
-      beamIn.setAttribute("stroke-width", w.toFixed(2));
-    }
+        // Initialize Beams
+        // Force the input beam to be visible immediately via Animation on load
+        // This ensures it is not "missing" when the page starts.
+        const lenInput = beamInput.getTotalLength();
+        beamInput.style.strokeDasharray = lenInput;
+        beamInput.style.strokeDashoffset = lenInput; // Start hidden
+        
+        setTimeout(() => {
+            beamInput.style.transition = "stroke-dashoffset 1.2s ease-out";
+            beamInput.style.strokeDashoffset = 0; // Draw it
+        }, 100);
 
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-  </script>
+        // Hide other beams initially
+        [...internalLines, ...externalLines].forEach(l => {
+            const len = l.getTotalLength();
+            l.style.strokeDasharray = len;
+            l.style.strokeDashoffset = len;
+        });
+
+        /**
+         * SCROLL & NAVIGATION LOGIC
+         */
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('section');
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        // Toggle Mobile Menu
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        function closeMobileMenu() {
+            mobileMenu.classList.add('hidden');
+        }
+
+        function onScroll() {
+            const scrollY = window.scrollY;
+            const viewportHeight = window.innerHeight;
+            const totalHeight = document.body.scrollHeight - viewportHeight;
+            let p = scrollY / totalHeight;
+            if(p < 0) p = 0; if(p > 1) p = 1;
+
+            // 1. Ray Tracing Animation
+            
+            // NOTE: We generally leave input beam static after intro animation, 
+            // but you can uncomment below to make it retract on scroll back up:
+            /*
+            let inputP = (p - ANIMATION_CONFIG.input.start) / ANIMATION_CONFIG.input.duration;
+            beamInput.style.transition = "none";
+            setDraw(beamInput, inputP);
+            */
+
+            let internalP = (p - ANIMATION_CONFIG.internal.start) / ANIMATION_CONFIG.internal.duration;
+            internalLines.forEach(l => setDraw(l, internalP));
+
+            let externalP = (p - ANIMATION_CONFIG.external.start) / ANIMATION_CONFIG.external.duration;
+            externalLines.forEach(l => setDraw(l, externalP));
+
+            // 2. Section Fade-In
+            const fadeSections = document.querySelectorAll('.fade-in-section');
+            fadeSections.forEach(sec => {
+                const rect = sec.getBoundingClientRect();
+                const triggerPoint = window.innerHeight * 0.8;
+                if (rect.top < triggerPoint) {
+                    sec.classList.add('is-visible');
+                }
+            });
+
+            // 3. Navigation Active State (ScrollSpy)
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= (sectionTop - viewportHeight * 0.3)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        /**
+         * IMAGE MODAL LOGIC
+         */
+        const modal = document.getElementById('image-modal');
+        const modalImg = document.getElementById('modal-img');
+
+        function openModal(src) {
+            modalImg.src = src;
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modalImg.classList.remove('scale-95', 'opacity-0');
+                modalImg.classList.add('scale-100', 'opacity-100');
+            }, 10);
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closeModal() {
+            modalImg.classList.remove('scale-100', 'opacity-100');
+            modalImg.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modalImg.src = '';
+            }, 300);
+            document.body.style.overflow = 'auto'; 
+        }
+
+        // Event Listeners
+        window.addEventListener('scroll', () => requestAnimationFrame(onScroll));
+        window.addEventListener('resize', () => {
+            [beamInput, ...internalLines, ...externalLines].forEach(l => {
+                l.style.strokeDasharray = l.getTotalLength();
+            });
+            onScroll();
+        });
+        
+        // Initial call
+        onScroll();
+
+        // Stars
+        const starContainer = document.getElementById('stars-container');
+        for(let i=0; i<100; i++) {
+            const s = document.createElement('div');
+            const size = Math.random() * 2 + 1;
+            s.style.width = size + 'px';
+            s.style.height = size + 'px';
+            s.style.background = `rgba(255,255,255,${Math.random() * 0.5 + 0.1})`;
+            s.style.position = 'absolute';
+            s.style.left = Math.random() * 100 + '%';
+            s.style.top = Math.random() * 100 + '%';
+            s.style.borderRadius = '50%';
+            starContainer.appendChild(s);
+        }
+    </script>
 </body>
 </html>
