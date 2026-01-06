@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bryan Turo • Optics & Photonics</title>
+  <meta name="description" content="Ph.D. student in optics and photonics. Research, CV, and cover art." />
+  <style>
+    :root{
+      --bg: #0b0f1a;
+      --panel: rgba(255,255,255,0.06);
+      --panel2: rgba(255,255,255,0.10);
+      --text: rgba(255,255,255,0.92);
+      --muted: rgba(255,255,255,0.68);
+      --line: rgba(255,255,255,0.14);
+      --max: 1120px;
+      --radius: 18px;
+    }
+
+    *{ box-sizing:border-box; }
+    html, body{ height:100%; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: radial-gradient(1200px 700px at 10% 0%, rgba(120,120,255,0.18), transparent 60%),
+                  radial-gradient(900px 600px at 90% 10%, rgba(0,255,200,0.12), transparent 60%),
+                  var(--bg);
+      color: var(--text);
+      overflow-x:hidden;
+    }
+
+    a{ color: inherit; text-decoration:none; }
+    a:hover{ text-decoration: underline; }
+    .wrap{ max-width: var(--max); margin: 0 auto; padding: 28px 18px; }
+
+    /* Nav */
+    .nav{
+      position: sticky; top:0; z-index: 20;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(to bottom, rgba(11,15,26,0.78), rgba(11,15,26,0.20));
+      border-bottom: 1px solid var(--line);
+    }
+    .nav .bar{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:16px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      font-weight:600; letter-spacing:0.2px;
+    }
+    .dot{
+      width:10px; height:10px; border-radius:50%;
+      background: radial-gradient(circle at 30% 30%, #fff, rgba(255,255,255,0.2));
+      box-shadow: 0 0 18px rgba(120,120,255,0.4);
+    }
+    .links{ display:flex; gap:14px; flex-wrap:wrap; align-items:center; }
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.04);
+    }
+    .pill:hover{ background: rgba(255,255,255,0.08); text-decoration:none; }
+
+    /* Hero */
+    .hero{
+      display:grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 22px;
+      align-items: stretch;
+      padding-top: 34px;
+    }
+    @media (max-width: 920px){
+      .hero{ grid-template-columns: 1fr; }
+    }
+
+    .card{
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      border-radius: var(--radius);
+      box-shadow: 0 18px 60px rgba(0,0,0,0.28);
+    }
+    .hero-left{ padding: 26px; }
+    .kicker{ color: var(--muted); font-size: 14px; letter-spacing:0.35px; text-transform:uppercase; }
+    h1{
+      margin: 10px 0 10px;
+      font-size: clamp(34px, 4vw, 52px);
+      line-height: 1.05;
+      letter-spacing: -0.6px;
+    }
+    .lead{
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.6;
+      max-width: 62ch;
+      margin: 0 0 16px;
+    }
+    .cta-row{ display:flex; gap:12px; flex-wrap:wrap; margin-top: 14px; }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:10px;
+      padding: 11px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.06);
+      font-weight:600;
+    }
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(130,120,255,0.42), rgba(0,255,200,0.18));
+      border-color: rgba(180,180,255,0.35);
+    }
+    .btn:hover{ background: rgba(255,255,255,0.10); text-decoration:none; }
+    .btn.primary:hover{ background: linear-gradient(135deg, rgba(130,120,255,0.55), rgba(0,255,200,0.22)); }
+
+    /* Prism panel */
+    .hero-right{
+      position: relative;
+      overflow:hidden;
+      min-height: 320px;
+      padding: 0;
+    }
+    .prism-frame{
+      position:absolute; inset:0;
+      display:flex; align-items:center; justify-content:center;
+      padding: 22px;
+    }
+    .prism-hint{
+      position:absolute; left:18px; bottom:14px;
+      color: rgba(255,255,255,0.58);
+      font-size: 12px;
+      user-select:none;
+    }
+
+    /* Sections */
+    section{ padding: 44px 0 10px; }
+    .section-head{
+      display:flex; justify-content:space-between; align-items:end; gap:16px;
+      margin-bottom: 14px;
+    }
+    h2{ margin:0; font-size: 22px; letter-spacing:-0.2px; }
+    .sub{ color: var(--muted); font-size: 14px; line-height:1.5; }
+
+    /* Gallery */
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 14px;
+    }
+    .tile{
+      grid-column: span 4;
+      border-radius: 16px;
+      overflow:hidden;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.04);
+      position:relative;
+    }
+    .tile img{
+      width:100%; height: 260px;
+      object-fit: cover;
+      display:block;
+      filter: saturate(1.02);
+      transform: scale(1.01);
+      transition: transform 200ms ease;
+    }
+    .tile:hover img{ transform: scale(1.05); }
+    .cap{
+      position:absolute; left:0; right:0; bottom:0;
+      padding: 10px 12px;
+      background: linear-gradient(to top, rgba(0,0,0,0.60), rgba(0,0,0,0));
+      color: rgba(255,255,255,0.92);
+      font-size: 13px;
+    }
+
+    @media (max-width: 980px){
+      .tile{ grid-column: span 6; }
+      .tile img{ height: 240px; }
+    }
+    @media (max-width: 640px){
+      .tile{ grid-column: span 12; }
+      .tile img{ height: 240px; }
+    }
+
+    /* Footer */
+    footer{
+      margin-top: 38px;
+      padding: 28px 0 42px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* Make anchors land nicely under sticky nav */
+    [id]{ scroll-margin-top: 80px; }
+  </style>
+</head>
+
+<body>
+  <div class="nav">
+    <div class="wrap">
+      <div class="bar">
+        <div class="brand">
+          <span class="dot"></span>
+          <span>Bryan Turo</span>
+        </div>
+        <div class="links">
+          <a class="pill" href="#work">Work</a>
+          <a class="pill" href="#covers">Cover art</a>
+          <a class="pill" href="/proposal/">Proposal</a>
+          <a class="pill" href="/assets/cv.pdf" target="_blank" rel="noopener">CV</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <div class="hero">
+      <div class="card hero-left">
+        <div class="kicker">Optics • Photonics • Structured light</div>
+        <h1>Ph.D. student building spatiotemporal light tools.</h1>
+        <p class="lead">
+          I’m a 5th-year Ph.D. student in optics and photonics. I work on structured light and
+          quantum/physical optics—turning dispersion and geometry into usable optical design.
+        </p>
+        <div class="cta-row">
+          <a class="btn primary" href="/assets/cv.pdf" target="_blank" rel="noopener">Download CV</a>
+          <a class="btn" href="/proposal/">View proposal slides</a>
+          <a class="btn" href="#covers">See cover art</a>
+        </div>
+        <p class="sub" style="margin-top:14px;">
+          Scroll: the prism animation responds to your scroll position.
+        </p>
+      </div>
+
+      <div class="card hero-right">
+        <div class="prism-frame">
+          <!-- Lightweight SVG "prism + beam" that animates via scroll -->
+          <svg id="prismSvg" viewBox="0 0 820 520" width="100%" height="100%" role="img" aria-label="Prism with light dispersion">
+            <defs>
+              <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+                <feGaussianBlur stdDeviation="4" result="b" />
+                <feMerge>
+                  <feMergeNode in="b" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+
+              <linearGradient id="prismFill" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0" stop-color="rgba(255,255,255,0.20)" />
+                <stop offset="1" stop-color="rgba(255,255,255,0.06)" />
+              </linearGradient>
+            </defs>
+
+            <!-- Incoming beam -->
+            <path id="beamIn" d="M 40 280 L 310 280" fill="none" stroke="white" stroke-width="10" stroke-linecap="round" filter="url(#glow)" opacity="0.9"/>
+
+            <!-- Prism (triangle) -->
+            <path id="prism" d="M 330 110 L 330 410 L 575 260 Z"
+                  fill="url(#prismFill)" stroke="rgba(255,255,255,0.35)" stroke-width="2"/>
+
+            <!-- Internal beam -->
+            <path id="beamMid" d="M 330 280 L 520 260" fill="none" stroke="white" stroke-width="6" stroke-linecap="round" filter="url(#glow)" opacity="0.8"/>
+
+            <!-- Dispersed beams -->
+            <path class="beamOut" id="b1" d="M 575 260 L 780 205" fill="none" stroke="white" stroke-width="5" stroke-linecap="round" filter="url(#glow)" opacity="0.9"/>
+            <path class="beamOut" id="b2" d="M 575 260 L 790 235" fill="none" stroke="white" stroke-width="5" stroke-linecap="round" filter="url(#glow)" opacity="0.9"/>
+            <path class="beamOut" id="b3" d="M 575 260 L 800 265" fill="none" stroke="white" stroke-width="5" stroke-linecap="round" filter="url(#glow)" opacity="0.9"/>
+            <path class="beamOut" id="b4" d="M 575 260 L 790 295" fill="none" stroke="white" stroke-width="5" stroke-linecap="round" filter="url(#glow)" opacity="0.9"/>
+            <path class="beamOut" id="b5" d="M 575 260 L 780 325" fill="none" stroke="white" stroke-width="5" stroke-linecap="round" filter="url(#glow)" opacity="0.9"/>
+
+            <!-- A subtle “screen” -->
+            <rect x="770" y="160" width="18" height="200" rx="9" fill="rgba(255,255,255,0.10)" stroke="rgba(255,255,255,0.18)"/>
+
+            <!-- Label -->
+            <text x="330" y="86" fill="rgba(255,255,255,0.55)" font-size="16" font-family="ui-sans-serif,system-ui">
+              prism • dispersion
+            </text>
+          </svg>
+        </div>
+        <div class="prism-hint">Scroll to change angle &amp; dispersion</div>
+      </div>
+    </div>
+
+    <section id="work">
+      <div class="section-head">
+        <h2>Work</h2>
+        <div class="sub">Short and punchy. Links go here.</div>
+      </div>
+
+      <div class="grid">
+        <div class="card" style="grid-column: span 12; padding:18px;">
+          <div style="display:flex; gap:14px; flex-wrap:wrap; align-items:flex-start; justify-content:space-between;">
+            <div style="max-width:70ch;">
+              <div class="kicker">Research focus</div>
+              <div style="margin-top:8px; color:var(--muted); line-height:1.65;">
+                Spatiotemporally structured fields, dispersion-aware beam synthesis, and
+                quantum/physical optics experiments. I like methods that turn geometry into
+                constraints you can actually build.
+              </div>
+            </div>
+            <div class="cta-row" style="margin-top:0;">
+              <a class="btn" href="/proposal/">Proposal slides</a>
+              <a class="btn" href="/assets/cv.pdf" target="_blank" rel="noopener">CV</a>
+              <!-- Add: Google Scholar / GitHub / LinkedIn -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="covers">
+      <div class="section-head">
+        <h2>Cover art</h2>
+        <div class="sub">A few pieces I’ve made (replace these files/captions).</div>
+      </div>
+
+      <div class="grid">
+        <a class="tile" href="/assets/covers/cover1.jpg" target="_blank" rel="noopener">
+          <img src="/assets/covers/cover1.jpg" alt="Cover art 1">
+          <div class="cap">Cover Art 1 — short caption</div>
+        </a>
+        <a class="tile" href="/assets/covers/cover2.jpg" target="_blank" rel="noopener">
+          <img src="/assets/covers/cover2.jpg" alt="Cover art 2">
+          <div class="cap">Cover Art 2 — short caption</div>
+        </a>
+        <a class="tile" href="/assets/covers/cover3.jpg" target="_blank" rel="noopener">
+          <img src="/assets/covers/cover3.jpg" alt="Cover art 3">
+          <div class="cap">Cover Art 3 — short caption</div>
+        </a>
+      </div>
+    </section>
+
+    <footer>
+      <div style="display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+        <div>© <span id="year"></span> Bryan Turo</div>
+        <div>
+          <a href="mailto:you@domain.com">you@domain.com</a>
+          <span style="opacity:.6;"> • </span>
+          <a href="https://github.com/BryanZero" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // --- Footer year ---
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // --- Prism scroll animation ---
+    // We’ll map scroll progress -> beam spread + slight prism "tilt" (visual only).
+    const svg = document.getElementById("prismSvg");
+    const prism = document.getElementById("prism");
+    const beamMid = document.getElementById("beamMid");
+    const beams = ["b1","b2","b3","b4","b5"].map(id => document.getElementById(id));
+
+    function clamp01(x){ return Math.max(0, Math.min(1, x)); }
+
+    function onScroll(){
+      const doc = document.documentElement;
+      const scrollTop = doc.scrollTop || document.body.scrollTop;
+      const maxScroll = (doc.scrollHeight - doc.clientHeight) || 1;
+      const t = clamp01(scrollTop / maxScroll); // 0..1
+
+      // Dispersion factor: subtle at top, stronger as you scroll down
+      const spread = 0.15 + 0.85 * t;
+
+      // Slight prism tilt (just for feel)
+      const tilt = (-4 + 8 * (t - 0.5)); // degrees
+      prism.style.transformOrigin = "420px 260px";
+      prism.style.transform = `rotate(${tilt}deg)`;
+
+      // Internal beam "refraction" point: adjust endpoint a bit
+      const midX = 520 + 18 * (t - 0.5);
+      const midY = 260 + 22 * (0.5 - t);
+      beamMid.setAttribute("d", `M 330 280 L ${midX.toFixed(1)} ${midY.toFixed(1)}`);
+
+      // Outgoing beams: change their angles + fade spectrum separation
+      // Base endpoints (x fixed-ish, y offsets change with spread)
+      const baseX = 790;
+      const ys = [
+        205 - 70 * spread,
+        235 - 40 * spread,
+        265 +  0 * spread,
+        295 + 40 * spread,
+        325 + 70 * spread,
+      ];
+
+      // Give them subtle per-beam opacity variation with spread
+      beams.forEach((p, i) => {
+        const x = baseX + (i === 2 ? 18 : 0) * spread;
+        const y = ys[i];
+        p.setAttribute("d", `M 575 260 L ${x.toFixed(1)} ${y.toFixed(1)}`);
+        p.style.opacity = (0.55 + 0.45 * spread).toFixed(3);
+      });
+
+      // Make the incoming beam slightly “pulse” with scroll (very subtle)
+      const beamIn = document.getElementById("beamIn");
+      const w = 8.5 + 2.5 * Math.sin(t * Math.PI);
+      beamIn.setAttribute("stroke-width", w.toFixed(2));
+    }
+
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+  </script>
+</body>
+</html>
